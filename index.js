@@ -12,4 +12,22 @@ app.get('/club', async (req, res) => {
   res.json(response.data.teams)
 })
 
+app.get('/club/:id/events', async (req, res) => {
+  const response = await axios.get(
+    `https://www.thesportsdb.com/api/v1/json/1/eventsnext.php?id=${
+      req.params.id
+    }`
+  )
+  res.json(response.data.events)
+})
+
+app.get('/events/:date', async (req, res) => {
+  const response = await axios.get(
+    `https://www.thesportsdb.com/api/v1/json/1/eventsday.php?d=${
+      req.params.date
+    }&s=Soccer`
+  )
+  res.json(response.data.events)
+})
+
 app.listen(process.env.PORT || 3000, () => console.log('server running'))
